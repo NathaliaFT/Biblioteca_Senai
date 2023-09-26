@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <!-- Coding by CodingNepal | www.codingnepalweb.com -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
     <title>Admin</title>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -177,21 +178,21 @@
           <ul class="top-sales-details">
             <li>
             <a href="#">
-              <img src="img/monica.jfif" alt="">
+              <img src="{% static 'assets/img/monica.jfif' %}" alt="">
               <span class="product">Mônica</span>
             </a>
             <span class="price">R$990</span>
           </li>
           <li>
             <a href="#">
-               <img src="img/pan.webp" alt="">
+               <img src="{% static 'assets/img/pan.webp' %}" alt="">
               <span class="product">Peter Pan </span>
             </a>
             <span class="price">R$1.900</span>
           </li>
           <li>
             <a href="#">
-             <img src="img/the-witcher.jpg" alt="">
+             <img src="{% static 'assets/img/the-witcher.jpg' %}" alt="">
               <span class="product">The Witcher</span>
             </a>
             <span class="price">R$36.990</span>
