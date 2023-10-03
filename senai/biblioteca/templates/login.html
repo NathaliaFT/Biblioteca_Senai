@@ -53,8 +53,15 @@
     </div>
     <section class="about" id="about">
         <div class="container">
-            <form id="userForm">
 
+            <form id="userForm" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {% for field in login_form.visible_fields %}
+                <div class="mb-3">
+                    <label for="{{field.id_for_label}}" class="form-label">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
                 <label for="email" style="color: blueviolet">Digite seu e-mail:</label>
                 <input type="email" id="email" name="email" required><br>
 
