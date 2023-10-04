@@ -12,6 +12,8 @@ urlpatterns = [
     path("Fic.html", views.Fic, name="Fic"),
     path("carrinho.html", views.carrinho, name="carrinho"),
     path("index.html", views.index, name="index"),
-    path("login.html", views.login, name="login")
+    path("login", views.login, name="login"),
+    path("novidade", views.nov, name="novidade"),
+    path('deletar/<int:id>', views.delete, name="delete")
 
 ]

@@ -7,13 +7,13 @@
     <!-- nav bar -->
     {% include 'partials/nav.html' %}
     <!-- nav bar -->
-    
+    {% include 'partials/alerta.html' %}
     <div class="home" style="background-image: url({% static 'assets/img/1.jpg' %})">
     <div class="content">
         <h5>Biblioteca Senai</h5>
         <h1>Pequenos preços!<span class="changecontent"></span></h1>
         <p>Os melhores best sellers para você!</p>
-    <a href="login.html">Entrar!</a>
+    <a href="{% url 'login' %}">Entrar!</a>
     </div>
     </div>
     <section class="packages" id="packages">

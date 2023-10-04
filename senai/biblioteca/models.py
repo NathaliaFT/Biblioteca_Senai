@@ -23,3 +23,6 @@ class Aluguel(models.Model):
     id_aluguel = models.IntegerField()
     data_retirada = models.IntegerField()
     data_entrega = models.IntegerField()
+
+class Categoria(models.Model):
+    nome = models.CharField(max_length=200)

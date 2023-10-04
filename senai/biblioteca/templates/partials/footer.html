@@ -30,7 +30,7 @@
             <div class="footer-col">
                 <h4>Cadastre-se!</h4>
                 <div class="form-sub">
-                    <form>
+                    <form action="{% url 'novidade' %}" method="POST">
                         {% csrf_token %}
 
                         <!-- <input type="email" placeholder="Digite o seu e-mail" required>
@@ -40,7 +40,7 @@
                         
                             <label for="{{field.id_for_label}}" class="visually-hidden">{{field.label}}</label>
                             {{field}}
-                            <button>Cadastre-se</button>
+                            <button type="submit">Cadastre-se</button>
                        
                         {% endfor %}
 
