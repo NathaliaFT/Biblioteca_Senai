@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 class Usuario(models.Model):
@@ -26,3 +27,9 @@ class Aluguel(models.Model):
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=200)
+
+
+class Tarefa(models.Model):
+    titulo = models.CharField(max_length=200)
+    descricao = models.TextField()
+    concluida = models.BooleanField(default=False)

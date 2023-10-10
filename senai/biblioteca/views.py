@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import *
 from biblioteca.forms import *
 from django.contrib import messages
+from .models import Tarefa
+
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 
@@ -31,6 +34,9 @@ def Fantasia(request):
 def carrinho(request):
     return render (request, 'carrinho.html')
 
+def forms(request):
+    return render (request, 'forms.html')
+
 def login(request):
     return render (request, 'login.html')
     if request.method == "POST":
@@ -59,5 +65,50 @@ def delete(request, id):
     messages.error(request, f'email deletado com sucesso!')
     return redirect('index')
 
+def edit(request, pk):
+    data = {}
+    data['db'] = Carros.objects.get(pk=pk)
+    data['form'] = CarrosForm(instance=data['db'])
+    return render(request, 'form.html', data)
+
+def update(request, pk):
+    data = {}
+    data['db'] = Carros.objects.get(pk=pk)
+    form = CarrosForm(request.POST or None, instance=data['db'])
+    if form.is_valid():
+        form.save()
+        return redirect('home')
 
 
+def lista_tarefas(request):
+    tarefas = Tarefa.objects.all()
+    return render(request, 'lista_tarefas.html', {'tarefas': tarefas})
+
+
+
+def criar_tarefa(request):
+    if request.method == 'POST':
+        form = TarefaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_tarefas')
+    else:
+        form = TarefaForm()
+    return render(request, 'criar_tarefa.html', {'form': form})
+
+
+def atualizar_tarefa(request, pk):
+    tarefa = get_object_or_404(Tarefa, pk=pk)
+    if request.method == 'POST':
+        form = TarefaForm(request.POST, instance=tarefa)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_tarefas')
+    else:
+        form = TarefaForm(instance=tarefa)
+    return render(request, 'atualizar_tarefa.html', {'form': form})
+
+def excluir_tarefa(request, pk):
+    tarefa = get_object_or_404(Tarefa, pk=pk)
+    tarefa.delete()
+    return redirect('lista_tarefas')

@@ -26,6 +26,7 @@ class Login(forms.Form):
         )
     )
 
+
     password = forms.CharField(
         label='Senha',
         required=True,
