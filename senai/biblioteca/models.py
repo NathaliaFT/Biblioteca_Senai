@@ -6,10 +6,9 @@ from django.db import models
 class Usuario(models.Model):
     nome = models.CharField(max_length=200)
     cpf = models.IntegerField()
-    id_usuario = models.IntegerField()
     email = models.TextField()
     senha = models.CharField(max_length=200)
-    tipo = models.TextField()
+    
     
 
 class Livro(models.Model):
@@ -33,3 +32,4 @@ class Tarefa(models.Model):
     titulo = models.CharField(max_length=200)
     descricao = models.TextField()
     concluida = models.BooleanField(default=False)
+

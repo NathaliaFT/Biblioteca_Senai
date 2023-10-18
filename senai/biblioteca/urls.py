@@ -11,15 +11,16 @@ urlpatterns = [
     path("Fantasia.html", views.Fantasia, name="Fantasia"),
     path("Fic.html", views.Fic, name="Fic"),
     path("carrinho.html", views.carrinho, name="carrinho"),
-    path("index.html", views.index, name="index"),
-    path("login", views.login, name="login"),
-    path("forms.html/", views.forms, name="forms"),
+    path("crud", views.crud, name="crud"),
+   
     path("novidade", views.nov, name="novidade"),
-    path('deletar/<int:id>', views.delete, name="delete"),
-    path('listar/', views.lista_tarefas, name='lista_tarefas'),
-    path('criar/', views.criar_tarefa, name='criar_tarefa'),
-    path('atualizar/<int:pk>/', views.atualizar_tarefa, name='atualizar_tarefa'),
-    path('excluir/<int:pk>/', views.excluir_tarefa, name='excluir_tarefa'),
+    path('adicionar', views.create, name="create"),
+    path('atualizar/<int:id>/', views.update, name='update'),
+    path('editar/<int:id>', views.edit, name="edit"),
+    path('deletar/<int:id>', views.delete, name='delete'),
+    path('login', views.login, name='login'),
+    path('admin', views.admin, name="admin")
+ 
     
 
 ]

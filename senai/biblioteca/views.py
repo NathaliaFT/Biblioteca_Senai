@@ -1,20 +1,25 @@
 from django.shortcuts import render, redirect
-from .models import *
-from biblioteca.forms import *
-from django.contrib import messages
-from .models import Tarefa
-
-from django.shortcuts import render, get_object_or_404, redirect
-
-# Create your views here.
-
+from .models import Usuario, Tarefa
+from .forms import Newsletter
+from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from .forms import LoginForms
 
 def index(request):
     form = Newsletter()
-    login_form= Login()
-    return render (request, 'index.html', {
-    'form':form,
-    'login_form': login_form})
+    login_form = LoginForms()
+    return render(request, 'index.html', {
+        'form': form,
+        'login_form': login_form
+    })
+
+def admin(request):
+    return render(request, "admin.html")
+
+def crud(request):
+    usuario = Usuario.objects.all()
+    return render(request, "crud.html", {'usuarios':usuario})
 
 def infantil(request):
     x = Newsletter()
@@ -37,78 +42,71 @@ def carrinho(request):
 def forms(request):
     return render (request, 'forms.html')
 
-def login(request):
-    return render (request, 'login.html')
-    if request.method == "POST":
-        form = Login(request.POST)
-
-        if form.is_valid():
-            email =form['email'].value()
-            password = form['password'].value()
-            messages.sucess(request, f'{email} logado com sucesso!')
-            return redirect('index')
-        else:
-            messages.error(request, f'{email} erro ao realizar o login!')
-            return redirect('index')
-
 
 def nov(request):
-    if request.method =="POST":
+    if request.method == "POST":
         bd = Categoria(nome=request.POST['email_news'])
         bd.save()
         messages.success(request, f'email cadastrado com sucessos!')
         return redirect('index')
 
+def home(request):
+    usuario = Usuario.objects.all()
+    return render(request, "crud.html", {"usuario":usuario})
+    
+
+def create(request):
+    Usuario.objects.create(
+        nome=request.POST['nome'],
+        cpf=request.POST['cpf'],
+        email=request.POST['email'],
+        senha=request.POST['senha'],
+    )
+    usuarios = Usuario.objects.all()
+    return redirect('crud')
+
+def edit(request, id):
+    usuario = Usuario.objects.get(pk=id)
+    return render(request, "editar.html", {'usuario':usuario})
+
+def update(request,id):
+    usuario = Usuario.objects.get(pk=id)
+    usuario.nome = request.POST['nome']
+    usuario.cpf = request.POST['cpf']
+    usuario.email = request.POST['email']
+    usuario.senha = request.POST['senha']
+    usuario.save()
+    return redirect('crud')
+
 def delete(request, id):
-    x = Categoria.objects.get(pk=id)
-    x.delete()
-    messages.error(request, f'email deletado com sucesso!')
-    return redirect('index')
-
-def edit(request, pk):
-    data = {}
-    data['db'] = Carros.objects.get(pk=pk)
-    data['form'] = CarrosForm(instance=data['db'])
-    return render(request, 'form.html', data)
-
-def update(request, pk):
-    data = {}
-    data['db'] = Carros.objects.get(pk=pk)
-    form = CarrosForm(request.POST or None, instance=data['db'])
-    if form.is_valid():
-        form.save()
-        return redirect('home')
+    usuario = Usuario.objects.get(pk=id)
+    usuario.delete()
+    return redirect('crud')
 
 
-def lista_tarefas(request):
-    tarefas = Tarefa.objects.all()
-    return render(request, 'lista_tarefas.html', {'tarefas': tarefas})
+def login(request):
+    form = LoginForms()
 
+    if request.method =='POST':
+        form = LoginForms(request.POST)
 
-
-def criar_tarefa(request):
-    if request.method == 'POST':
-        form = TarefaForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('lista_tarefas')
-    else:
-        form = TarefaForm()
-    return render(request, 'criar_tarefa.html', {'form': form})
+            nome = form['nome_login'].value()
+            senha = form['senha'].value()
 
+        usuario = auth.authenticate(
+            request,
+            username=nome,
+            password=senha
+        )
 
-def atualizar_tarefa(request, pk):
-    tarefa = get_object_or_404(Tarefa, pk=pk)
-    if request.method == 'POST':
-        form = TarefaForm(request.POST, instance=tarefa)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_tarefas')
-    else:
-        form = TarefaForm(instance=tarefa)
-    return render(request, 'atualizar_tarefa.html', {'form': form})
-
-def excluir_tarefa(request, pk):
-    tarefa = get_object_or_404(Tarefa, pk=pk)
-    tarefa.delete()
-    return redirect('lista_tarefas')
+        if usuario is not None:
+            auth.login(request, usuario)
+            messages.success(request, usuario)
+            return redirect('index')
+        else:
+            messages.error(request, 'Erro ao efetuar login')
+            return redirect('login')
+        
+    return render(request, 'login.html' , {'form': form} )
+            
