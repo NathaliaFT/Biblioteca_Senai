@@ -5,6 +5,9 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .forms import LoginForms
+from .forms import LivroForm
+from .models import Livro, Categoria
+
 
 def index(request):
     form = Newsletter()
@@ -48,7 +51,7 @@ def nov(request):
         bd = Categoria(nome=request.POST['email_news'])
         bd.save()
         messages.success(request, f'email cadastrado com sucessos!')
-        return redirect('index')
+        return redirect('loginn')
 
 def home(request):
     usuario = Usuario.objects.all()
@@ -64,6 +67,25 @@ def create(request):
     )
     usuarios = Usuario.objects.all()
     return redirect('crud')
+
+def adicionar_livro(request):
+    if request.method == 'POST':
+        livro_form = LivroForm(request.POST, request.FILES)
+        if livro_form.is_valid():
+            novo_livro = Livro(
+                titulo= livro_form.cleaned_data['titulo'],
+                autor= livro_form.cleaned_data['autor'],
+                publicação= livro_form.cleaned_data['publicação'],
+                paginas= livro_form.cleaned_data['paginas'],
+                capa = livro_form.cleaned_data['capa']
+            )
+            novo_livro.save() 
+
+            return redirect('lista_livros')
+    else:
+        livro_form = LivroForm()
+
+    return render(request, 'adicionar_livro.html', {'livro_form': livro_form})
 
 def edit(request, id):
     usuario = Usuario.objects.get(pk=id)
@@ -83,6 +105,8 @@ def delete(request, id):
     usuario.delete()
     return redirect('crud')
 
+def registro(request):
+    return render(request, "registro.html")
 
 def login(request):
     form = LoginForms()
@@ -94,11 +118,10 @@ def login(request):
             nome = form['nome_login'].value()
             senha = form['senha'].value()
 
-        usuario = auth.authenticate(
-            request,
-            username=nome,
-            password=senha
-        )
+            usuario = auth.authenticate(request,
+                username=nome,
+                password=senha
+            )
 
         if usuario is not None:
             auth.login(request, usuario)
@@ -109,4 +132,22 @@ def login(request):
             return redirect('login')
         
     return render(request, 'login.html' , {'form': form} )
-            
+
+
+
+
+
+def lista_livros(request):
+    livros = Livro.objects.all()
+    return render(request, 'lista_livros.html', {'livros': livros})
+
+def livro_detalhes (request):
+    livros = livros.objects.all()
+    return render(request, 'livro_detalhes.html', {'livros': livros})
+
+def nov(request):
+    if request.method =="POST":
+        bd = Categoria(nome=request.POST['email_news'])
+        bd.save()
+        messages.success(request, f'email cadastrado com sucessos!')
+        return redirect('index')

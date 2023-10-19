@@ -20,43 +20,45 @@
 
     {% include 'partials/alerta.html' %}
     <div class="main-txt">
-        <h1>Login/<span>Cadastro</span></h1>
+        <h1>C<span>adastro</span></h1>
     </div>
     <section class="about" id="about">
         <div class="container">
 
-           
+            <form id="userForm" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {% for field in login_form.visible_fields %}
+                    <div class="mb-3">
+                        <label for="{{field.id_for_label}}" class="form-label">{{field.label}}</label>
+                        {{field}}
+                    </div>
+                {% endfor %}
+                    <label for="text" style="color: blueviolet">Nome do Usuario:</label>
+                    <input type="text" id="text" name="text" required><br>
 
+                    <label for="email" style="color: blueviolet">Digite seu e-mail:</label>
+                    <input type="email" id="email" name="email" required><br>
 
-                <div class="form-sub">
-                    <form action="{% url 'novidade' %}" method="POST">
-                        {% csrf_token %}
+                    <label for="password" style="color: blueviolet">Adicione sua senha:</label>
+                    <input type="password" id="password" name="password" required><br>
 
-                        <!-- <input type="email" placeholder="Digite o seu e-mail" required>
-                        <button>Cadastre-se</button> -->
-
-                        {% for field in form.visible_fields %}
+                    <label for="password" style="color: blueviolet">Confirme sua senha:</label>
+                    <input type="password" id="password" name="password" required><br>
+                    <br>
+                <center>
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Cancelar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Cadastre-se</a>
+                        </li>
+                        </ul>
                         
-                            <label for="{{field.id_for_label}}" class="visually-hidden">{{field.label}}</label>
-                            {{field}}
-                           
-                       
-                        {% endfor %}
-                        <br>
-                        <center>
-                        <li class="nav-item">
-                        <button class="carrinho-btn">Entrar</button>
-                        </li>
-                        </center>
+                        
+                      
                     </form>
-                    <center>
-                        <li class="nav-item">
-                        <a class="nav-link" href="registro.html">Cadastre-se</a>
-                        </li>
-                    </center>
-                </div>
-
-                    
+                </center>
             </form>
         </div>
     </section>

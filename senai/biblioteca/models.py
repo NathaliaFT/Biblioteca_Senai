@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 
 
 # Create your models here.
@@ -18,6 +19,7 @@ class Livro(models.Model):
     quant_pag = models.IntegerField()
     sinopse = models.TextField()
     status = models.TextField()
+    
 
 class Aluguel(models.Model):
     id_aluguel = models.IntegerField()
