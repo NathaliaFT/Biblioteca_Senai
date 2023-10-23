@@ -1,0 +1,9 @@
+<!-- templates/excluir_usuario.html -->
+<h1>Excluir Usuário</h1>
+<p>Tem certeza de que deseja excluir o usuário "{{ usuario.username }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar Exclusão</button>
+</form>
+
+<a href="{% url 'listar_usuarios' %}">Cancelar</a>

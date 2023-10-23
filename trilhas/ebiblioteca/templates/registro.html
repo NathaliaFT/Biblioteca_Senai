@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+</head>
+<body>
+    <nav>
+        <!-- Navbar content aqui -->
+    </nav>
+
+    <!-- Div para exibir mensagem de erro -->
+    <div class="error-message">
+        {% if error_message %}
+            {{ error_message }}
+        {% endif %}
+    </div>
+
+    <h1>Registro</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required><br>
+        <label for="data_de_nascimento">Data de Nascimento:</label>
+        <input type="date" name="data_de_nascimento" id="data_de_nascimento" required><br>
+        <label for="password">Senha:</label>
+        <input type="password" name="password" id="password" required><br>
+        <label for="confirm_password">Confirmar Senha:</label>
+        <input type="password" name="confirm_password" id="confirm_password" required><br>
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>
+

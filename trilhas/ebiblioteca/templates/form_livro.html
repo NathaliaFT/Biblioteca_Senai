@@ -1,0 +1,5 @@
+<form class="meu-formulario" method="post" action="{% url 'criar_livro' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="botao-salvar">Salvar</button>
+</form>

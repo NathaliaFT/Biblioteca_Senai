@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- links navdash -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <!-- links navdash -->
+</head>
+<body>
+ <!-- navdash -->
+ <div class="sidebar">
+  <ul class="nav-links">
+    <li>
+      <a href="dashboard">
+        <i class='bx bxs-home'></i>
+        <span class="links_name">Home</span>
+      </a>
+    </li>
+    <li>
+        <a href="dashboarduser">
+          <i class='bx bx-user' ></i>
+          <span class="links_name">Registro de usuário</span>
+        </a>
+    </li>
+    <li>
+      <a href="dashboardlivro">
+        <i class='bx bx-list-ul' ></i>
+        <span class="links_name">Regitro de livros</span>
+      </a>
+    </li>
+    <li>
+      <a href="dashboardaluguel">
+        <i class='bx bx-book-alt' ></i>
+        <span class="links_name">Status dos livros</span>
+      </a>
+    </li>
+    
+
+    <li class="log_out">
+      <a href="index">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name">Log out</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<section class="home-section">
+<nav>
+  <div class="sidebar-button">
+    <i class='bx bx-menu sidebarBtn'></i>
+    <span class="dashboard">Biblioteca Senai</span>
+  </div>
+</nav>
+ <!-- navdash -->
+
+    <div class="home-content">
+      <div class="overview-boxes">
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Livros Alugados</div><br>
+            <div class="number"> 3 </div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">Ontem</span>
+            </div>
+          </div>
+          <i class='bx bxs-cart-add cart two' ></i>
+        </div>
+      </div>
+
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title">Devoluções Recentes</div><br>
+          <div class="sales-details">
+            <ul class="details">
+              <li class="topic">Data</li>
+              <li><a href="#">13 Set 2023</a></li>
+              <li><a href="#">12 Set 2023</a></li>
+              <li><a href="#">12 Set 2023</a></li>
+          
+            </ul>
+            <ul class="details">
+            <li class="topic">Cliente</li>
+            <li><a href="#">João Silva</a></li>
+            <li><a href="#">Pedro Gonçalves</a></li>
+            <li><a href="#">Maria Souza</a></li>
+            
+          </ul>
+          <ul class="details">
+            <li class="topic">Devolução/Emprestimo</li>
+            <li><a href="#">Devolução : 15 Set 2023</a></li>
+            <li><a href="#">Devolução : 19 Set 2023</a></li>
+            <li><a href="#">Emprestimo : 13 Set 2023</a></li>
+          </ul>
+   
+          </div>
+        </div>
+       </div>
+      </section>
+      <!-- sidebar -->
+      <script>
+        let sidebar = document.querySelector(".sidebar");
+     let sidebarBtn = document.querySelector(".sidebarBtn");
+     sidebarBtn.onclick = function() {
+       sidebar.classList.toggle("active");
+       if(sidebar.classList.contains("active")){
+       sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+     }else
+       sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+     }
+      </script>
+      <!-- sidebar -->
+</body>
+</html>
